@@ -1,11 +1,145 @@
 {% extends "govuk/template.njk" %}
 
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
+{% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{{serviceName}}
+{% set serviceName = "Restful Restaurant Reviews" %}
+{{serviceName}}
+
+{% set htmlClasses = "app-html-class" %}
+{% set htmlLang = "en" %}
+{% set assetUrl = "<YOUR-DOMAIN>" %}
+{% set themeColor = "blue" %}
+{% set bodyClasses = "app-body-class" %}
+{% set bodyAttributes = {
+  "data-test": "My value",
+  "data-other": "report:details"
+} %}
+
+{% block pageTitle %}piratejas - GOV.UK{% endblock %}
+
+{% block headIcons %}
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+{% endblock %}
+
 {% block head %}
   <link href="/styles/main.css" rel="stylesheet">
 {% endblock %}
 
+{% block bodyStart %}
+  <form action="/form-handler" method="post" novalidate>
+    {{ govukCookieBanner({
+      ariaLabel: "Cookies on " ~ serviceName,
+      messages: [
+        {
+          headingText: "Cookies on " ~ serviceName,
+          html: '<p class="govuk-body">We use some essential cookies to make this service work.</p>
+            <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>',
+          actions: [
+            {
+              text: "Accept analytics cookies",
+              type: "submit",
+              name: "cookies[analytics]",
+              value: "yes"
+            },
+            {
+              text: "Reject analytics cookies",
+              type: "submit",
+              name: "cookies[analytics]",
+              value: "no"
+            },
+            {
+              text: "View cookies",
+              href: "#"
+            }
+          ]
+        }
+      ]
+    }) }}
+  </form>
+{% endblock %}
+
+{% block skipLink %}
+  {{ govukSkipLink({
+    href: "#main-content",
+    text: "Skip to main content"
+  }) }}
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "#",
+    serviceName: serviceName,
+    serviceUrl: "#",
+    navigation: [
+      {
+        href: "#",
+        text: "Navigation item 1",
+        active: true
+      },
+      {
+        href: "#",
+        text: "Navigation item 2"
+      },
+      {
+        href: "#",
+        text: "Navigation item 3"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% set mainClasses = "app-main-class" %}
+
+{% block main %}
+  {{ super() }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "Alpha"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+  {{ govukBackLink({
+    href: "#",
+    text: "Back"
+  }) }}
+{% endblock %}
+
 {% block content %}
-  <h1 class="govuk-heading-xl">Default page template</h1>
+  <h1 class="govuk-heading-xl">Customised page template</h1>
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "#",
+          text: "Help"
+        },
+        {
+          href: "#",
+          text: "Cookies"
+        },
+        {
+          href: "#",
+          text: "Contact"
+        },
+        {
+          href: "#",
+          text: "Terms and conditions"
+        }
+      ]
+    }
+  }) }}
 {% endblock %}
 
 {% block bodyEnd %}
