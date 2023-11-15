@@ -72,25 +72,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeader({
-    homepageUrl: "#",
-    serviceName: serviceName,
-    serviceUrl: "#",
-    navigation: [
-      {
-        href: "#",
-        text: "Navigation item 1"
-      },
-      {
-        href: "#",
-        text: "Navigation item 2"
-      },
-      {
-        href: "#",
-        text: "Navigation item 3"
-      }
-    ]
-  }) }}
+  {% include "templates/custom-header.njk" %}
 {% endblock %}
 
 {% set mainClasses = "app-main-class" %}
@@ -113,28 +95,7 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "#",
-          text: "Help"
-        },
-        {
-          href: "#",
-          text: "Cookies"
-        },
-        {
-          href: "#",
-          text: "Contact"
-        },
-        {
-          href: "#",
-          text: "Terms and conditions"
-        }
-      ]
-    }
-  }) }}
+  {% include "templates/custom-footer.njk" %}
 {% endblock %}
 
 {% block bodyEnd %}

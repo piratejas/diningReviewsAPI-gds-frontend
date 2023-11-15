@@ -7459,4 +7459,14 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.footer__github-logo {
+  background-image: url("../images/github-mark.png");
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .footer__github-logo {
+    background-image: url("../images/github-mark.png");
+  }
+}
+
 /*# sourceMappingURL=main.css.map */

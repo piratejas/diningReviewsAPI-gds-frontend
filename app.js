@@ -5,7 +5,7 @@ const path = require('path');
 const indexRouter = require("./app/routes/index");
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 
 nunjucks.configure([
