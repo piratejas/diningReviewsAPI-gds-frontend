@@ -1,14 +1,86 @@
 @import "../../../node_modules/govuk-frontend/govuk/all";
 
 * {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app-hr {
+  border: 0;
+  height: 1px;
+  background: #5794CB;
+}
+
+.app-inverse {
+  color: #ffffff !important;
+}
+
+.hero {
+  overflow: hidden;
+  background: #1d70b8;
+  color: #ffffff;
+  &-title {
+    color: #ffffff !important;
+    margin: 25px 0 !important;
+  }
+  &-text {
+    color: #ffffff !important;
+    margin-bottom: 30px !important;
+    &-link {
+      color: #ffffff !important;
+      &:focus {
+        color: #000000 !important;
+      }
+    }
+  }
+  &-button {
+    color: #1d70b8 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 0 #003078 !important;
+    &:focus {
+      border-color: #003078 !important;
+    }
+  }
+  &-button:hover {
+    background-color: #d6e4f2 !important;
+  }
+  &-padding-top {
+    padding-top: 25px;
+  }
+}
+
+.subnav {
+  display: flex;
+  &-auth {
+    display: none;
+  }
+  &-margins {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .subnav {
+    &-auth {
+      display: flex;
+      align-items: center;
+      margin: 0 !important;
+      margin-left: auto !important;
+      font-size: 16px !important;
+      & > *:first-child {
+        padding-right: 15px;
+      }
+    }
+  }
 }
 
 .footer__github-logo {
+  background-image: url("../images/github-mark.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .footer__github-logo {
     background-image: url("../images/github-mark.png");
   }
-  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-    .footer__github-logo {
-      background-image: url("../images/github-mark.png");
-    }
-  }
+}

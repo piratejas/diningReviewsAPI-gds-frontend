@@ -9,16 +9,6 @@
 {% set serviceName = "Restful Restaurant Reviews" %}
 {{serviceName}}
 
-{% set htmlClasses = "app-html-class" %}
-{% set htmlLang = "en" %}
-{% set assetUrl = "<YOUR-DOMAIN>" %}
-{% set themeColor = "blue" %}
-{% set bodyClasses = "app-body-class" %}
-{% set bodyAttributes = {
-  "data-test": "My value",
-  "data-other": "report:details"
-} %}
-
 {% block pageTitle %}piratejas - GOV.UK Frontend{% endblock %}
 
 {% block headIcons %}
@@ -73,20 +63,18 @@
   {% include "templates/custom-header.njk" %}
 {% endblock %}
 
-{% set mainClasses = "app-main-class" %}
-
 {% block main %}
-  {{ super() }}
+  {% block beforeContent %}
+    {{ govukPhaseBanner({
+      classes: "govuk-width-container",
+      tag: {
+        text: "Alpha"
+      },
+      html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  {% endblock %}
 {% endblock %}
 
-{% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: "Alpha"
-    },
-    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-  }) }}
-{% endblock %}
 
 {% block content %}
   <h1 class="govuk-heading-xl">Customised page template</h1>

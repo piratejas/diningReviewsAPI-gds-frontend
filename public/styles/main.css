@@ -7459,6 +7459,73 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.app-hr {
+  border: 0;
+  height: 1px;
+  background: #5794CB;
+}
+
+.app-inverse {
+  color: #ffffff !important;
+}
+
+.hero {
+  overflow: hidden;
+  background: #1d70b8;
+  color: #ffffff;
+}
+.hero-title {
+  color: #ffffff !important;
+  margin: 25px 0 !important;
+}
+.hero-text {
+  color: #ffffff !important;
+  margin-bottom: 30px !important;
+}
+.hero-text-link {
+  color: #ffffff !important;
+}
+.hero-text-link:focus {
+  color: #000000 !important;
+}
+.hero-button {
+  color: #1d70b8 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 0 #003078 !important;
+}
+.hero-button:focus {
+  border-color: #003078 !important;
+}
+.hero-button:hover {
+  background-color: #d6e4f2 !important;
+}
+.hero-padding-top {
+  padding-top: 25px;
+}
+
+.subnav {
+  display: flex;
+}
+.subnav-auth {
+  display: none;
+}
+.subnav-margins {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 40.0625em) {
+  .subnav-auth {
+    display: flex;
+    align-items: center;
+    margin: 0 !important;
+    margin-left: auto !important;
+    font-size: 16px !important;
+  }
+  .subnav-auth > *:first-child {
+    padding-right: 15px;
+  }
+}
 .footer__github-logo {
   background-image: url("../images/github-mark.png");
 }
