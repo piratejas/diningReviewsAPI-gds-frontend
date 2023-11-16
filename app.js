@@ -9,15 +9,13 @@ const app = express();
 const port = 3000;
 
 
-const nunjucksEnv = nunjucks.configure([
+nunjucks.configure([
     "node_modules/govuk-frontend/",
     "app/views/"
   ], {
   autoescape: true,
   express: app,
 });
-
-console.log(nunjucksEnv.loaders[0].searchPaths);
 
 
 app.use(express.static(path.join(__dirname, "public")));
