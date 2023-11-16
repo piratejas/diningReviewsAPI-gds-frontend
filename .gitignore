@@ -134,4 +134,8 @@ dist
 *.sass.map
 *.scss.map
 
+# Exclude compiled CSS files
+*.css
+
 .DS_Store
+
