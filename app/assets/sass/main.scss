@@ -1,7 +1,7 @@
 @import "../../../node_modules/govuk-frontend/govuk/all";
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .govuk-phase-banner--no-border {
@@ -86,7 +86,7 @@
   only screen and (min-resolution: 2dppx) {
   .footer__github-logo {
     background-image: url("../images/github-mark.png");
-    background-position: 50% -30%;
-    background-size: 120px 120px;
+    background-position: 50% 0%;
+    background-size: 100px 100px;
   }
 }
