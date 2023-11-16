@@ -1,48 +1,62 @@
 {% extends "templates/layout.njk" %}
 
+{% block pageTitle %}{{serviceName}} - Home - TDSE.UK{% endblock %}
+
+
 {% block main %}
-  {{ super() }}
-    <div class="hero">
-        <div class="govuk-width-container">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full subnav govuk-!-margin-top-2">
-                    <ul id="proposition-links" class="govuk-list subnav-auth">
+    {% block beforeContent %}
+        {{ govukPhaseBanner({
+        classes: "govuk-width-container govuk-phase-banner--no-border",
+        tag: {
+            text: "Pira"
+        },
+        html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
+        }) }}
+    {% endblock %}
 
-                        <li>
-                            <a class="govuk-link govuk-link--inverse " href="/registration">
-                            Register
-                            </a>
-                        </li>
+    {% block content %}
+        <div class="hero">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full subnav govuk-!-margin-top-2">
+                        <ul id="proposition-links" class="govuk-list subnav-auth">
 
-                        <li>
-                            <a class="govuk-link govuk-link--inverse " href="/login">
-                            Sign in
-                            </a>
-                        </li>
+                            <li>
+                                <a class="govuk-link govuk-link--inverse " href="/user/registration">
+                                Register
+                                </a>
+                            </li>
 
-                    </ul>
-                </div>
-            </div>
-            <hr class="govuk-section-break govuk-section-break--s app-hr govuk-!-margin-top-1">
-        </div>
-        <div class="govuk-width-container hero-padding-top">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-2">
-                    <h1 id="RESTful-APIs-Title" class="govuk-heading-xl hero-title govuk-!-margin-top-3">Search for restaurants, view allergy ratings and submit reviews</h1>
-                    <p class="govuk-body govuk-!-font-size-24 app-inverse">
-                        Sign up to get started.
-                    </p>
-                    <div class="govuk-button-group">
-                        <a href="/registration" role="button" draggable="false" class="govuk-button hero-button govuk-!-font-size-24 govuk-!-font-weight-bold" data-module="govuk-button">
-                            Get an account
-                        </a>
-                        <span class="govuk-body app-inverse">or
-                            <a class="govuk-link govuk-link--inverse govuk-!-font-weight-bold" href="/login">sign in</a>
-                        </span>
+                            <li>
+                                <a class="govuk-link govuk-link--inverse " href="/user/login">
+                                Sign in
+                                </a>
+                            </li>
+
+                        </ul>
                     </div>
+                </div>
+                <hr class="govuk-section-break govuk-section-break--s app-hr govuk-!-margin-top-1">
+            </div>
+            <div class="govuk-width-container hero-padding-top">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-2">
+                        <h1 id="RESTful-APIs-Title" class="govuk-heading-xl hero-title govuk-!-margin-top-3">Search for restaurants, view allergy ratings and submit reviews</h1>
+                        <p class="govuk-body govuk-!-font-size-24 app-inverse">
+                            Sign up to get started.
+                        </p>
+                        <div class="govuk-button-group">
+                            <a href="/user/registration" role="button" draggable="false" class="govuk-button hero-button govuk-!-font-size-24 govuk-!-font-weight-bold" data-module="govuk-button">
+                                Get an account
+                            </a>
+                            <span class="govuk-body app-inverse">or
+                                <a class="govuk-link govuk-link--inverse govuk-!-font-weight-bold" href="/user/login">sign in</a>
+                            </span>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endblock %}
 {% endblock %}

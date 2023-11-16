@@ -3,24 +3,29 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 
 const indexRouter = require("./app/routes/index");
+const userRouter = require("./app/routes/user");
 
 const app = express();
-const port = 8080;
+const port = 3000;
 
 
-nunjucks.configure([
+const nunjucksEnv = nunjucks.configure([
     "node_modules/govuk-frontend/",
-    "app/views"
+    "app/views/"
   ], {
   autoescape: true,
   express: app,
 });
+
+console.log(nunjucksEnv.loaders[0].searchPaths);
+
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/assets', express.static(path.join(__dirname, 'node_modules/govuk-frontend/govuk/assets')));
 app.use('/govuk-frontend', express.static(path.join(__dirname, 'node_modules/govuk-frontend/govuk')));
 
 app.use('/', indexRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

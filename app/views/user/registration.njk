@@ -1,0 +1,115 @@
+{% extends "templates/layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+
+{% block pageTitle %}Register a user account - {{serviceName}} - TDSE.UK{% endblock %}
+
+
+{% block beforeContent %}
+    {{ super() }}
+    
+    <div class="govuk-width-container">
+        {{ govukBreadcrumbs({
+            items: [
+                {
+                    text: "Home",
+                    href: "/"
+                }
+            ]
+        }) }}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-width-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Register for a user account
+            </h1>
+
+            <form class="form" action="#" method="post" novalidate>
+
+                {{ govukInput({
+                    label: {
+                        text: "First Name",
+                        classes: "govuk-label--m"
+                    },
+                    hint: {
+                        text: "For example, Loren"
+                    },
+                    classes: "govuk-input--width-10",
+                    id: "name",
+                    name: "name",
+                    autocomplete: "given-name",
+                    value: data["name"] 
+                }) }}
+
+                {{ govukInput({
+                    label: {
+                        text: "Surname",
+                        classes: "govuk-label--m"
+                    },
+                    hint: {
+                        text: "For example, Thurman"
+                    },
+                    classes: "govuk-input--width-10",
+                    id: "surname",
+                    name: "surname",
+                    autocomplete: "family-name",
+                    value: data["surname"]
+                }) }}
+
+                {{ govukDateInput({
+                    id: "dob",
+                    namePrefix: "dob",
+                    fieldset: {
+                        legend: {
+                            text: "Date of birth",
+                            isPageHeading: true,
+                            classes: "govuk-fieldset__legend--l"
+                        }
+                    },
+                    hint: {
+                        text: "For example, 27 3 2007"
+                    },
+                    items: [
+                        {
+                            name: 'day',
+                            autocomplete: 'bday-day',
+                            classes: 'govuk-input--width-2',
+                            value: data['dob-day']
+                        },
+                        {
+                            name: 'month',
+                            autocomplete: 'bday-month',
+                            classes: 'govuk-input--width-2',
+                            value: data['dob-month']
+                        },
+                        {
+                            name: 'year',
+                            autocomplete: 'bday-year',
+                            classes: 'govuk-input--width-4',
+                            value: data['dob-year']
+                        }
+                    ]
+                }) }}
+
+                {{ govukButton({
+                    text: "Continue"
+                }) }}
+
+            </form>
+                
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
