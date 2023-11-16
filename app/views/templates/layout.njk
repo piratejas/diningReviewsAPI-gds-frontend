@@ -60,18 +60,19 @@
 {% endblock %}
 
 {% block main %}
-  {% block beforeContent %}
-    {{ govukPhaseBanner({
-      classes: "govuk-width-container",
-      tag: {
-        text: "Pira"
-      },
-      html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
-    }) }}
-  {% endblock %}
-  <main id="main-content" class="govuk-main-wrapper">
-    {% block content %}{% endblock %}
-  </main>
+  <div class="govuk-width-container">
+    {% block beforeContent %}
+      {{ govukPhaseBanner({
+        tag: {
+          text: "Pira"
+        },
+        html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
+      }) }}
+    {% endblock %}
+    <main id="main-content" class="govuk-main-wrapper">
+      {% block content %}{% endblock %}
+    </main>
+  <div>
 {% endblock %}
 
 {% block footer %}
