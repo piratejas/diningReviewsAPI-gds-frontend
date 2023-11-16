@@ -135,12 +135,21 @@
                         name: "confirmPassword"
                     }) }}
 
+                    <p class="govuk-body">
+                        By creating an account you agree to our
+                        <a class="govuk-link" href="#">terms and conditions</a>,
+                        <a class="govuk-link" href="#">privacy policy</a> and
+                        <a class="govuk-link" href="#">cookie policy</a>.
+                    </p>
+                    
                     {{ govukButton({
                         text: "Register"
                     }) }}
 
                 </form>
-
+                <p class="govuk-body">
+                    Already registered? <a class="govuk-link" href="/user/login">Sign in to your account.</a>
+                </p>
             </div>
         </div>
     </div>
