@@ -8,6 +8,10 @@
   border-bottom: none !important;
 }
 
+.before-content-banner {
+  display: flex;
+}
+
 .app-hr {
   border: 0;
   height: 1px;
@@ -54,18 +58,12 @@
 
 .subnav {
   display: flex;
+  margin-left: auto !important;
+
   &-auth {
     display: none;
-  }
-  &-margins {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
 
-@media (min-width: 40.0625em) {
-  .subnav {
-    &-auth {
+    @media (min-width: 40.0625em) {
       display: flex;
       align-items: center;
       margin: 0 !important;
@@ -74,7 +72,21 @@
       & > *:first-child {
         padding-right: 15px;
       }
+
+      &-links {
+        display: flex;
+        margin: 10px 0 !important;
+        
+        & > *:first-child {
+          padding-right: 15px;
+        }
+      }
     }
+  }
+
+  &-margins {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 

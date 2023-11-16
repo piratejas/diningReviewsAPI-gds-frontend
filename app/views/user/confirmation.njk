@@ -1,1 +1,41 @@
 {% extends "templates/layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+
+{% block pageTitle %}New account created - {{serviceName}} - TDSE.UK{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+
+    <div class="govuk-width-container before-content-banner">
+        {{ govukBreadcrumbs({
+            items: [
+                {
+                    text: "Home",
+                    href: "/"
+                },
+                {
+                    text: "New account created"
+                }
+            ]
+        }) }}
+        <div class="subnav">
+            <ul id="proposition-links" class="govuk-list subnav-auth-links">
+
+                <li>
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/registration">
+                        Register
+                    </a>
+                </li>
+                <li>
+                    <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/login">
+                        Sign in
+                    </a>
+                </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
