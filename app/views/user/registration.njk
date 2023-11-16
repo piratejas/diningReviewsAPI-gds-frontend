@@ -2,16 +2,14 @@
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-
 
 {% block pageTitle %}Register a user account - {{serviceName}} - TDSE.UK{% endblock %}
 
-
 {% block beforeContent %}
     {{ super() }}
-    
+
     <div class="govuk-width-container">
         {{ govukBreadcrumbs({
             items: [
@@ -31,83 +29,117 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
 
-            <h1 class="govuk-heading-l">
-                Register for a user account
-            </h1>
+                <h1 class="govuk-heading-l">
+                    Register for a user account
+                </h1>
 
-            <form class="form" action="#" method="post" novalidate>
+                <form class="form" action="#" method="post" novalidate>
 
-                {{ govukInput({
-                    label: {
-                        text: "First Name",
-                        classes: "govuk-label--m"
-                    },
-                    hint: {
-                        text: "For example, Loren"
-                    },
-                    classes: "govuk-input--width-10",
-                    id: "name",
-                    name: "name",
-                    autocomplete: "given-name",
-                    value: data["name"] 
-                }) }}
-
-                {{ govukInput({
-                    label: {
-                        text: "Surname",
-                        classes: "govuk-label--m"
-                    },
-                    hint: {
-                        text: "For example, Thurman"
-                    },
-                    classes: "govuk-input--width-10",
-                    id: "surname",
-                    name: "surname",
-                    autocomplete: "family-name",
-                    value: data["surname"]
-                }) }}
-
-                {{ govukDateInput({
-                    id: "dob",
-                    namePrefix: "dob",
-                    fieldset: {
-                        legend: {
-                            text: "Date of birth",
-                            isPageHeading: true,
-                            classes: "govuk-fieldset__legend--l"
-                        }
-                    },
-                    hint: {
-                        text: "For example, 27 3 2007"
-                    },
-                    items: [
-                        {
-                            name: 'day',
-                            autocomplete: 'bday-day',
-                            classes: 'govuk-input--width-2',
-                            value: data['dob-day']
+                    {{ govukInput({
+                        label: {
+                            text: "Username",
+                            classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        {
-                            name: 'month',
-                            autocomplete: 'bday-month',
-                            classes: 'govuk-input--width-2',
-                            value: data['dob-month']
+                        classes: "govuk-input--width-10",
+                        id: "name",
+                        name: "name",
+                        autocomplete: "username",
+                        value: data["name"] 
+                    }) }}
+
+                    {{ govukInput({
+                        label: {
+                            text: "City",
+                            classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        {
-                            name: 'year',
-                            autocomplete: 'bday-year',
-                            classes: 'govuk-input--width-4',
-                            value: data['dob-year']
-                        }
-                    ]
-                }) }}
+                        classes: "govuk-input--width-10",
+                        id: "city",
+                        name: "city",
+                        value: data["city"]
+                    }) }}
 
-                {{ govukButton({
-                    text: "Continue"
-                }) }}
+                    {{ govukInput({
+                        label: {
+                            text: "County",
+                            classes: "govuk-label govuk-!-font-weight-bold"
+                        },
+                        classes: "govuk-input--width-10",
+                        id: "county",
+                        name: "county",
+                        value: data["county"]
+                    }) }}
 
-            </form>
-                
+                    {{ govukInput({
+                        label: {
+                            text: "Post code",
+                            classes: "govuk-label govuk-!-font-weight-bold"
+                        },
+                        classes: "govuk-input--width-5",
+                        id: "postCode",
+                        name: "postCode",
+                        autocomplete: "postal-code",
+                        value: data["postCode"]
+                    }) }}
+
+                    {{ govukCheckboxes({
+                        name: "waste",
+                        fieldset: {
+                            legend: {
+                            text: "Which food allergy ratings are you interested in?",
+                            classes: "govuk-label govuk-!-font-weight-bold"
+                            }
+                        },
+                        hint: {
+                            text: "Select all that apply."
+                        },
+                        items: [
+                            {
+                                value: "egg",
+                                text: "Egg"
+                            },
+                            {
+                                value: "dairy",
+                                text: "Dairy"
+                            },
+                            {
+                                value: "peanut",
+                                text: "Peanut"
+                            }
+                        ]
+                    }) }}
+
+                    {{ govukInput({
+                        label: {
+                            text: "Create password",
+                            classes: "govuk-label govuk-!-font-weight-bold"
+                        },
+                        hint: {
+                            text: "Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character",
+                            id: "password-hint"
+                        },
+                        type: "password",
+                        classes: "govuk-input--width-10",
+                        id: "password",
+                        name: "password",
+                        describedBy: "password-hint"
+                    }) }}
+
+                    {{ govukInput({
+                        label: {
+                            text: "Confirm password",
+                            classes: "govuk-label govuk-!-font-weight-bold"
+                        },
+                        type: "password",
+                        classes: "govuk-input--width-10",
+                        id: "confirmPassword",
+                        name: "confirmPassword"
+                    }) }}
+
+                    {{ govukButton({
+                        text: "Register"
+                    }) }}
+
+                </form>
 
             </div>
         </div>
