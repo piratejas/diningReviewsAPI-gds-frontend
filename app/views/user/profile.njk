@@ -1,0 +1,82 @@
+{% extends "templates/layout.njk" %}
+
+{% block pageTitle %}Manage profile - {{serviceName}} - TDSE.UK{% endblock %}
+
+{# TODO: pass in user object #}
+{% set loggedIn = true %}
+{% set user = {
+	"name": "piratejas"
+} %}
+
+{# {% set breadcrumbItems = [
+	{
+		text: "Home",
+		href: "/"
+	}, {
+		text: "Contents"
+	}
+] %} #}
+
+{% block beforeContent %}
+	{{ super() }}
+	<div class="before-content-banner">
+		{% include "templates/breadcrumbs.njk" %}
+		{% include "templates/subnav-auth.njk" %}
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-quarter responsive-nav">
+			<div class="side-nav">
+				<h2 class="govuk-heading-s govuk-!-margin-bottom-1 govuk-!-margin-top-2" id="nav3">Manage account</h2>
+				<ul class="side-nav__component">
+					<li class="side-nav__list  side-nav__list--selected ">
+						<a class="side-nav__link" href="/user/profile">Manage profile</a>
+					</li>
+					<li class="side-nav__list ">
+						<a class="side-nav__link" href="/user/profile/password">Change password</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="govuk-grid-column-two-thirds">
+			<div class="govuk-side-nav-content">
+
+				<h1 class="govuk-heading-l">Manage profile</h1>
+
+				<h2 class="govuk-heading-s">Profile details</h2>
+				<dl class="govuk-summary-list">
+					<div class="govuk-summary-list__row">
+						<dt class="govuk-summary-list__key">Name</dt>
+						<dd class="govuk-summary-list__value" id="name">Pira Tejasakulsin</dd>
+						<dd class="govuk-summary-list__actions">
+							<a class="govuk-link" id="change" href="/developer/profile/change">Change<span class="govuk-visually-hidden">name</span></a>
+						</dd>
+					</div>
+					<div class="govuk-summary-list__row">
+						<dt class="govuk-summary-list__key">Email address</dt>
+						<dd class="govuk-summary-list__value" id="emailAddress">piratejas@gmail.com</dd>
+
+					</div>
+					<div class="govuk-summary-list__row">
+						<dt class="govuk-summary-list__key">Organisation</dt>
+						<dd class="govuk-summary-list__value" id="organisation">None</dd>
+						<dd class="govuk-summary-list__actions">
+							<a class="govuk-link" id="change-organisation" href="/developer/profile/change">Change<span class="govuk-visually-hidden">organisation</span></a>
+						</dd>
+					</div>
+				</dl>
+
+				<h2 class="govuk-heading-m">Delete account</h2>
+				<p class="govuk-body">
+					You can ask us to delete your account and we will respond within 2 working days.
+				</p>
+				<p class="govuk-body">
+					<a class="govuk-link govuk-link--no-visited-state" href="#" id="account-deletion">Request account deletion</a>
+				</p>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,16 +1,27 @@
 <div class="subnav">
     <ul id="proposition-links" class="govuk-list subnav-auth-links">
-
-        <li>
-            <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/registration">
-                        Register
-                    </a>
-        </li>
-        <li>
-            <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/login">
-                        Sign in
-                    </a>
-        </li>
-
+		{% if loggedIn %}
+			<li>
+				<a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/profile">
+					{{user.name}}
+				</a>
+			</li>
+			<li>
+				<a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/logout">
+					Sign out
+				</a>
+			</li>
+		{% else %}
+			<li>
+				<a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/registration">
+					Register
+				</a>
+			</li>
+			<li>
+				<a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/login">
+					Sign in
+				</a>
+			</li>
+		{% endif %}
     </ul>
 </div>

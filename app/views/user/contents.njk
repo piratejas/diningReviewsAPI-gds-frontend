@@ -1,3 +1,24 @@
 {% extends "templates/layout.njk" %}
 
 {% block pageTitle %}Using our service - {{serviceName}} - TDSE.UK{% endblock %}
+
+{# TODO: pass in user object #}
+{% set loggedIn = true %}
+{% set user = {"name": "piratejas"} %}
+
+{% set breadcrumbItems = [
+	{
+		text: "Home",
+		href: "/"
+	}, {
+		text: "Contents"
+	}
+] %}
+
+{% block beforeContent %}
+	{{ super() }}
+	<div class="before-content-banner">
+		{% include "templates/breadcrumbs.njk" %}
+		{% include "templates/subnav-auth.njk" %}
+	</div>
+{% endblock %}

@@ -26,4 +26,12 @@ router.get("/contents", (req, res, next) => {
     res.render('user/contents.njk');
 })
 
+router.get("/profile", (req, res, next) => {
+    res.render('user/profile.njk');
+})
+
+router.get("/profile/password", (req, res, next) => {
+    res.render('user/change-password.njk');
+})
+
 module.exports = router;
