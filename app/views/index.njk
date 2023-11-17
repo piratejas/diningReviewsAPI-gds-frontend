@@ -6,13 +6,8 @@
 
 {% block main %}
     {% block beforeContent %}
-        {{ govukPhaseBanner({
-        classes: "govuk-width-container govuk-phase-banner--no-border",
-        tag: {
-            text: "Pira"
-        },
-        html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
-        }) }}
+        {% set phaseBannerClasses = "govuk-width-container govuk-phase-banner--no-border" %}
+        {% include "templates/phase-banner.njk" %}
     {% endblock %}
 
     {% block content %}

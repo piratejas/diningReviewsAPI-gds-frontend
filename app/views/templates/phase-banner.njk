@@ -1,8 +1,9 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {{ govukPhaseBanner({
-        tag: {
-          text: "Pira"
-        },
-        html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
+    classes: phaseBannerClasses | default(""),
+    tag: {
+      text: "Pira"
+    },
+    html: 'This is not a real service – your <a class="govuk-link" href="#">feedback</a> will help me to improve it.'
 }) }}
