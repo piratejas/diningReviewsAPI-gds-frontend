@@ -1,6 +1,5 @@
 {% extends "templates/layout.njk" %}
 
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
@@ -9,15 +8,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-
-        {{ govukBreadcrumbs({
-            items: [
-                {
-                    text: "Home",
-                    href: "/"
-                }
-            ]
-        }) }}
+    {% include "templates/breadcrumbs.njk" %}
 {% endblock %}
 
 {% block content %}

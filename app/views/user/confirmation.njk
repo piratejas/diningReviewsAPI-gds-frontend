@@ -1,8 +1,6 @@
 {% extends "templates/layout.njk" %}
 
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
-
 
 {% block pageTitle %}New account created - {{serviceName}} - TDSE.UK{% endblock %}
 
@@ -10,17 +8,16 @@
     {{ super() }}
 
     <div class="before-content-banner">
-        {{ govukBreadcrumbs({
-            items: [
-                {
-                    text: "Home",
-                    href: "/"
-                },
-                {
-                    text: "New account created"
-                }
-            ]
-        }) }}
+        {% set breadcrumbItems = [
+            {
+                text: "Home",
+                href: "/"
+            },
+            {
+                text: "New account registered"
+            }
+        ] %}
+        {% include "templates/breadcrumbs.njk" %}
         <div class="subnav">
             <ul id="proposition-links" class="govuk-list subnav-auth-links">
 
