@@ -24,14 +24,14 @@
                     Register a user account to start using our <a class="govuk-link" href="/api-documentation/docs/api">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
                 </p>
 
-                <form class="form" action="#" method="post" novalidate>
+                <form action="#" method="post" novalidate>
 
                     {{ govukInput({
                         label: {
                             text: "Username",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        classes: "govuk-input--width-10",
+                        classes: "govuk-input--width-20",
                         id: "name",
                         name: "name",
                         autocomplete: "username",
@@ -43,7 +43,7 @@
                             text: "City",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        classes: "govuk-input--width-10",
+                        classes: "govuk-input--width-20",
                         id: "city",
                         name: "city",
                         value: data["city"]
@@ -54,7 +54,7 @@
                             text: "County",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        classes: "govuk-input--width-10",
+                        classes: "govuk-input--width-20",
                         id: "county",
                         name: "county",
                         value: data["county"]
@@ -65,7 +65,7 @@
                             text: "Post code",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
-                        classes: "govuk-input--width-5",
+                        classes: "govuk-input--width-10",
                         id: "postCode",
                         name: "postCode",
                         autocomplete: "postal-code",
@@ -109,7 +109,7 @@
                             id: "password-hint"
                         },
                         type: "password",
-                        classes: "govuk-input--width-10",
+                        classes: "govuk-input--width-20",
                         id: "password",
                         name: "password",
                         describedBy: "password-hint"
@@ -121,7 +121,7 @@
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         type: "password",
-                        classes: "govuk-input--width-10",
+                        classes: "govuk-input--width-20",
                         id: "confirmPassword",
                         name: "confirmPassword"
                     }) }}
