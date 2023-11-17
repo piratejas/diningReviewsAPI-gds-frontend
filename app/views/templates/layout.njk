@@ -6,45 +6,49 @@
 {% set serviceName = "RESTful Restaurant Reviews" %}
 
 {% block headIcons %}
-  <link rel="shortcut icon" href="/images/soc_avatar.png" type="image/x-icon" />
+	<link rel="shortcut icon" href="/images/soc_avatar.png" type="image/x-icon"/>
 {% endblock %}
 
 {% block head %}
-  <link href="/styles/main.css" rel="stylesheet">
+	<link href="/styles/main.css" rel="stylesheet">
 {% endblock %}
 
 {# {% block bodyStart %}
-  {% include "templates/cookie-banner.njk" %}
+	{% include "templates/cookie-banner.njk" %}
 {% endblock %} #}
 
 {% block skipLink %}
-  {{ govukSkipLink({
-    href: "#main-content",
-    text: "Skip to main content"
-  }) }}
+	{{ govukSkipLink({
+		href: "#main-content",
+		text: "Skip to main content"
+	}) }}
 {% endblock %}
 
 {% block header %}
-  {% include "templates/custom-header.njk" %}
+	{% include "templates/custom-header.njk" %}
 {% endblock %}
 
 {% block main %}
-  <div class="govuk-width-container">
-    {% block beforeContent %}
-      {% include "templates/phase-banner.njk" %}
-    {% endblock %}
-    <main id="main-content" class="govuk-main-wrapper">
-      {% block content %}{% endblock %}
-    </main>
-  </div>
+	<div class="govuk-width-container">
+		{% block beforeContent %}
+			{% include "templates/phase-banner.njk" %}
+		{% endblock %}
+		<main id="main-content" class="govuk-main-wrapper">
+			{% block content %}{% endblock %}
+		</main>
+	</div>
 {% endblock %}
 
 {% block footer %}
-  {% include "templates/custom-footer.njk" %}
+	{% include "templates/custom-footer.njk" %}
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="/govuk-frontend/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+	{# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+	<script src="/govuk-frontend/all.js"></script>
+	<script>
+		window
+			.GOVUKFrontend
+			.initAll()
+	</script>
 {% endblock %}
