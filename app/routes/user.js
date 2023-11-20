@@ -6,6 +6,7 @@ router.route("/login")
         res.render('user/login.njk');
     })
     .post((req, res, next) => {
+		// TODO: form handler middleware
         res.redirect("/user/contents");
     })
 
