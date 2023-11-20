@@ -27,6 +27,10 @@ router.get("/contents", (req, res, next) => {
     res.render('user/contents.njk');
 })
 
+router.get("/logout", (req, res, next) => {
+    res.render('user/logout.njk');
+})
+
 router.get("/profile", (req, res, next) => {
     res.render('user/profile.njk');
 })
