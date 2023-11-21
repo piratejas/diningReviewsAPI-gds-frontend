@@ -1,2 +1,3 @@
 - add error message macros to text input / validation
 - auth / sign-in / session cookies
+- cookie banner

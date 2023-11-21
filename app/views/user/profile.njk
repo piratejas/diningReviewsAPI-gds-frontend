@@ -1,12 +1,24 @@
 {% extends "templates/layout.njk" %}
 
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
 {% block pageTitle %}Manage profile - {{serviceName}} - TDSE.UK{% endblock %}
 
 {# TODO: pass in user object #}
 {% set loggedIn = true %}
 {% set user = {
-	"name": "piratejas"
+	"name": "piratejas",
+	"city": "New York",
+	"state": "NY",
+	"zipCode": "56789",
+	"peanutAllergy": true,
+	"eggAllergy": false,
+	"dairyAllergy": true
 } %}
+{% set allergies = [] %}
+{% if user.peanutAllergy %}{% set _ = allergies.push("Peanut") %}{% endif %}
+{% if user.eggAllergy %}{% set _ = allergies.push("Egg") %}{% endif %}
+{% if user.dairyAllergy %}{% set _ = allergies.push("Dairy") %}{% endif %}
 
 {# {% set breadcrumbItems = [
 	{
@@ -46,27 +58,58 @@
 				<h1 class="govuk-heading-l">Manage profile</h1>
 
 				<h2 class="govuk-heading-s">Profile details</h2>
-				<dl class="govuk-summary-list">
-					<div class="govuk-summary-list__row">
-						<dt class="govuk-summary-list__key">Name</dt>
-						<dd class="govuk-summary-list__value" id="name">Pira Tejasakulsin</dd>
-						<dd class="govuk-summary-list__actions">
-							<a class="govuk-link" id="change" href="/developer/profile/change">Change<span class="govuk-visually-hidden">name</span></a>
-						</dd>
-					</div>
-					<div class="govuk-summary-list__row">
-						<dt class="govuk-summary-list__key">Email address</dt>
-						<dd class="govuk-summary-list__value" id="emailAddress">piratejas@gmail.com</dd>
 
-					</div>
-					<div class="govuk-summary-list__row">
-						<dt class="govuk-summary-list__key">Organisation</dt>
-						<dd class="govuk-summary-list__value" id="organisation">None</dd>
-						<dd class="govuk-summary-list__actions">
-							<a class="govuk-link" id="change-organisation" href="/developer/profile/change">Change<span class="govuk-visually-hidden">organisation</span></a>
-						</dd>
-					</div>
-				</dl>
+				{{ govukSummaryList({
+				rows: [
+					{
+					key: {
+						text: "Username"
+					},
+					value: {
+						text: user.name
+					}
+					},
+					{
+					key: {
+						text: "Address"
+					},
+					value: {
+						html: user.city ~ '<br>' ~ user.state ~ '<br>' ~ user.zipCode
+					},
+					actions: {
+						items: [
+						{
+							href: "#",
+							text: "Change",
+							visuallyHiddenText: "address"
+						}
+						]
+					}
+					},
+					{
+					key: {
+						text: "Allergies"
+					},
+					value: {
+						html: allergies.join(', ')
+					},
+					actions: {
+						items: [
+						{
+							href: "#",
+							text: "Add",
+							visuallyHiddenText: "allergies"
+						},
+						{
+							href: "#",
+							text: "Change",
+							visuallyHiddenText: "allergies"
+						}
+						]
+					}
+					}
+				]
+				}) }}
 
 				<h2 class="govuk-heading-m">Delete account</h2>
 				<p class="govuk-body">
