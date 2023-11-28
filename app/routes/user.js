@@ -8,9 +8,32 @@ router.route("/login")
     .get((req, res, next) => {
         res.render('user/login.njk');
     })
-    .post((req, res, next) => {
+    .post(async (req, res, next) => {
 		// TODO: form handler middleware
-        res.redirect("/user/contents");
+			// Save jwt from response into session cookie
+		const data = {
+			"username": req.body.username,
+			"password": req.body.password
+		}
+
+		try {
+            // Make a POST request to the external server
+            const response = await axios.post('http://localhost:4001/auth/login', data);
+
+            // Assuming the external server responds with a success status
+            if (response.status === 200) {
+                // Redirect to confirmation page after successful registration
+				console.log(response.data);
+                res.redirect("/user/contents");
+            } else {
+                // Handle other response statuses as needed
+                res.status(response.status).send('Login failed');
+            }
+        } catch (error) {
+            // Handle errors from the POST request
+            console.error('Error sending POST request:', error);
+            res.status(500).send('Internal Server Error');
+        }
     })
 
 router.route("/registration")
