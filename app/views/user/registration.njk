@@ -21,10 +21,10 @@
                 </h1>
 
                 <p class="govuk-body">
-                    Register a user account to start using our <a class="govuk-link" href="/api-documentation/docs/api">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
+                    Register a user account to start using our <a class="govuk-link" href="/">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
                 </p>
 
-                <form action="#" method="post" novalidate>
+                <form action="/user/registration" method="post" novalidate>
 
                     {{ govukInput({
                         label: {
@@ -34,8 +34,7 @@
                         classes: "govuk-input--width-20",
                         id: "name",
                         name: "name",
-                        autocomplete: "username",
-                        value: data["name"] 
+                        autocomplete: "username"
                     }) }}
 
                     {{ govukInput({
@@ -45,8 +44,7 @@
                         },
                         classes: "govuk-input--width-20",
                         id: "city",
-                        name: "city",
-                        value: data["city"]
+                        name: "city"
                     }) }}
 
                     {{ govukInput({
@@ -56,8 +54,7 @@
                         },
                         classes: "govuk-input--width-20",
                         id: "county",
-                        name: "county",
-                        value: data["county"]
+                        name: "county"
                     }) }}
 
                     {{ govukInput({
@@ -68,12 +65,11 @@
                         classes: "govuk-input--width-10",
                         id: "postCode",
                         name: "postCode",
-                        autocomplete: "postal-code",
-                        value: data["postCode"]
+                        autocomplete: "postal-code"
                     }) }}
 
                     {{ govukCheckboxes({
-                        name: "waste",
+                        name: "allergies",
                         fieldset: {
                             legend: {
                             text: "Which food allergy ratings are you interested in?",
@@ -85,14 +81,17 @@
                         },
                         items: [
                             {
+								name: "eggAllergy",
                                 value: "egg",
                                 text: "Egg"
                             },
                             {
+								name: "dairyAllergy",
                                 value: "dairy",
                                 text: "Dairy"
                             },
                             {
+								name: "peanutAllergy",
                                 value: "peanut",
                                 text: "Peanut"
                             }
