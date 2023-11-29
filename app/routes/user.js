@@ -6,11 +6,14 @@ const cookieParser = require('cookie-parser');
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
 
-const attachJwtToHeader = (req, res, next) => {
-	const jwt = req.cookies.session.token;
+const isLoggedIn = (req, res, next) => {
   
-	if (jwt) {
-	  req.headers['Authorization'] = `Bearer ${jwt}`;
+	if (req.cookies.session.loggedIn) {
+	  req.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
+	  res.locals.session = {
+		username: req.cookies.session.username,
+		loggedIn: req.cookies.session.loggedIn
+	  };
 	}
   
 	next();
@@ -37,7 +40,6 @@ router.route("/login")
 					loggedIn: true
 				}
 
-                
                 res.cookie('session', cookieData, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === 'production', // Set to true in production if using HTTPS
@@ -45,7 +47,6 @@ router.route("/login")
                     sameSite: 'Lax',
                     path: '/'
                 });
-				console.log(req.cookies);
                 res.redirect("/user/contents");
             } else {
                 // TODO
@@ -100,22 +101,27 @@ router.route("/registration")
             res.status(500).send('Internal Server Error');
         }
     })
-
-router.use(attachJwtToHeader);
-
+	
 router.get("/confirmation", (req, res, next) => {
-    res.render('user/confirmation.njk');
+	res.render('user/confirmation.njk');
 })
+
+router.get("/logout", (req, res, next) => {
+	res.clearCookie('session');
+	res.render('user/logout.njk');
+})
+
+router.use(isLoggedIn);
 
 router.get("/contents", (req, res, next) => {
     res.render('user/contents.njk');
 })
 
-router.get("/logout", (req, res, next) => {
-    res.render('user/logout.njk');
-})
-
-router.get("/profile", (req, res, next) => {
+router.get("/profile", async (req, res, next) => {
+	const response = await axios.get(`http://localhost:4001/users/${res.locals.session.username}`, {
+		withCredentials: false
+	});
+	// console.log(req.headers);
     res.render('user/profile.njk');
 })
 

@@ -1,9 +1,9 @@
 <div class="subnav">
     <ul id="proposition-links" class="govuk-list subnav-auth-links">
-		{% if loggedIn %}
+		{% if session.loggedIn %}
 			<li>
 				<a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16 " href="/user/profile">
-					{{user.name}}
+					{{session.username}}
 				</a>
 			</li>
 			<li>
