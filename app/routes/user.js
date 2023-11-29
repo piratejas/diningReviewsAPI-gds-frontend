@@ -1,36 +1,58 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const cookieParser = require('cookie-parser');
 
 router.use(express.urlencoded({ extended: true }));
+router.use(cookieParser());
+
+const attachJwtToHeader = (req, res, next) => {
+	const jwt = req.cookies.session.token;
+  
+	if (jwt) {
+	  req.headers['Authorization'] = `Bearer ${jwt}`;
+	}
+  
+	next();
+  };
 
 router.route("/login")
     .get((req, res, next) => {
         res.render('user/login.njk');
     })
     .post(async (req, res, next) => {
-		// TODO: form handler middleware
-			// Save jwt from response into session cookie
 		const data = {
 			"username": req.body.username,
 			"password": req.body.password
 		}
 
 		try {
-            // Make a POST request to the external server
             const response = await axios.post('http://localhost:4001/auth/login', data);
 
-            // Assuming the external server responds with a success status
             if (response.status === 200) {
-                // Redirect to confirmation page after successful registration
 				console.log(response.data);
+				const cookieData = {
+					username: response.data.username,
+					token: response.data.jwt,
+					loggedIn: true
+				}
+
+                
+                res.cookie('session', cookieData, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production', // Set to true in production if using HTTPS
+                    maxAge: 60 * 60 * 1000, // 1hr
+                    sameSite: 'Lax',
+                    path: '/'
+                });
+				console.log(req.cookies);
                 res.redirect("/user/contents");
             } else {
-                // Handle other response statuses as needed
+                // TODO
                 res.status(response.status).send('Login failed');
             }
         } catch (error) {
-            // Handle errors from the POST request
+            // TODO
             console.error('Error sending POST request:', error);
             res.status(500).send('Internal Server Error');
         }
@@ -64,23 +86,22 @@ router.route("/registration")
 		}
 
 		try {
-            // Make a POST request to the external server
             const response = await axios.post('http://localhost:4001/auth/register', data);
 
-            // Assuming the external server responds with a success status
             if (response.status === 200) {
-                // Redirect to confirmation page after successful registration
                 res.redirect("/user/confirmation");
             } else {
-                // Handle other response statuses as needed
+				// TODO
                 res.status(response.status).send('Registration failed');
             }
         } catch (error) {
-            // Handle errors from the POST request
+            // TODO
             console.error('Error sending POST request:', error);
             res.status(500).send('Internal Server Error');
         }
     })
+
+router.use(attachJwtToHeader);
 
 router.get("/confirmation", (req, res, next) => {
     res.render('user/confirmation.njk');
