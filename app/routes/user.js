@@ -6,10 +6,15 @@ const cookieParser = require('cookie-parser');
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
 
+let requestInterceptor;
+
 const isLoggedIn = (req, res, next) => {
   
 	if (req.cookies.session.loggedIn) {
-		axios.defaults.headers.common['Authorization'] = `Bearer ${req.cookies.session.token}`;
+		requestInterceptor = axios.interceptors.request.use((config) => {
+			config.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
+			return config;
+		  });
 	  	res.locals.session = {
 			username: req.cookies.session.username,
 			loggedIn: req.cookies.session.loggedIn
@@ -108,6 +113,8 @@ router.get("/confirmation", (req, res, next) => {
 
 router.get("/logout", (req, res, next) => {
 	res.clearCookie('session');
+	axios.interceptors.request.eject(requestInterceptor);
+	console.log(req.headers);
 	res.render('user/logout.njk');
 })
 
