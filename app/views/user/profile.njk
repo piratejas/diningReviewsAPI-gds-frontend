@@ -5,7 +5,7 @@
 {% block pageTitle %}Manage profile - {{serviceName}} - TDSE.UK{% endblock %}
 
 {# TODO: pass in user object #}
-{% set loggedIn = true %}
+{# {% set loggedIn = true %}
 {% set user = {
 	"name": "piratejas",
 	"city": "New York",
@@ -14,7 +14,7 @@
 	"peanutAllergy": true,
 	"eggAllergy": false,
 	"dairyAllergy": true
-} %}
+} %} #}
 {% set allergies = [] %}
 {% if user.peanutAllergy %}{% set _ = allergies.push("Peanut") %}{% endif %}
 {% if user.eggAllergy %}{% set _ = allergies.push("Egg") %}{% endif %}
@@ -66,7 +66,7 @@
 						text: "Username"
 					},
 					value: {
-						text: user.name
+						text: user.username
 					}
 					},
 					{
@@ -74,7 +74,7 @@
 						text: "Address"
 					},
 					value: {
-						html: user.city ~ '<br>' ~ user.state ~ '<br>' ~ user.zipCode
+						html: user.city ~ '<br>' ~ user.county ~ '<br>' ~ user.postCode
 					},
 					actions: {
 						items: [

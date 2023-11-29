@@ -9,11 +9,11 @@ router.use(cookieParser());
 const isLoggedIn = (req, res, next) => {
   
 	if (req.cookies.session.loggedIn) {
-	  req.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
-	  res.locals.session = {
-		username: req.cookies.session.username,
-		loggedIn: req.cookies.session.loggedIn
-	  };
+		axios.defaults.headers.common['Authorization'] = `Bearer ${req.cookies.session.token}`;
+	  	res.locals.session = {
+			username: req.cookies.session.username,
+			loggedIn: req.cookies.session.loggedIn
+	  	};
 	}
   
 	next();
@@ -121,8 +121,9 @@ router.get("/profile", async (req, res, next) => {
 	const response = await axios.get(`http://localhost:4001/users/${res.locals.session.username}`, {
 		withCredentials: false
 	});
-	// console.log(req.headers);
-    res.render('user/profile.njk');
+	const user = response.data;
+	console.log(user);
+    res.render('user/profile.njk', { user });
 })
 
 router.get("/profile/password", (req, res, next) => {
