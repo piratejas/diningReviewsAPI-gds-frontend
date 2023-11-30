@@ -1,7 +1,7 @@
-module.exports = (res, payload) => {
+module.exports = (res, data) => {
 	const cookieData = {
-		username: payload.username,
-		token: payload.jwt,
+		username: data.username,
+		token: data.jwt,
 		loggedIn: true
 	}
 

@@ -15,19 +15,15 @@ router.route("/login")
     })
     .post(async (req, res, next) => {
 		try {
-            const response = await login(req);
-
-            if (response.status === 200) {
-				createSessionCookie(res, response.data);
-                res.redirect("/user/contents");
-            } else {
-                // TODO
-                res.status(response.status).send('Login failed');
-            }
+            const response = await login(req);				createSessionCookie(res, response.data);
+            res.redirect("/user/contents");
         } catch (error) {
-            // TODO
-            console.error('Error sending POST request:', error);
-            res.status(500).send('Internal Server Error');
+            if (error.response.status === 401) {
+				res.status(401).send('Login failed.');
+			} else {
+				console.error('Error sending POST request:', error);
+				res.status(500).send('Internal server error.')
+			}
         }
     })
 
@@ -92,9 +88,7 @@ router.get("/contents", (req, res, next) => {
 })
 
 router.get("/profile", async (req, res, next) => {
-	const response = await axios.get(`http://localhost:4001/users/${res.locals.session.username}`, {
-		withCredentials: false
-	});
+	const response = await axios.get(`http://localhost:4001/users/${res.locals.session.username}`);
 	const user = response.data;
     res.render('user/profile.njk', { user });
 })
