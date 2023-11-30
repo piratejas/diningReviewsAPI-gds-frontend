@@ -38,7 +38,6 @@ router.route("/login")
             const response = await axios.post('http://localhost:4001/auth/login', data);
 
             if (response.status === 200) {
-				console.log(response.data);
 				const cookieData = {
 					username: response.data.username,
 					token: response.data.jwt,
@@ -69,6 +68,7 @@ router.route("/registration")
         res.render('user/registration.njk');
     })
     .post(async (req, res, next) => {
+		// TODO - validation
 		console.log(req.body);
         // const username = req.body.name;
         // const city = req.body.city;
@@ -114,7 +114,6 @@ router.get("/confirmation", (req, res, next) => {
 router.get("/logout", (req, res, next) => {
 	res.clearCookie('session');
 	axios.interceptors.request.eject(requestInterceptor);
-	console.log(req.headers);
 	res.render('user/logout.njk');
 })
 
@@ -129,7 +128,6 @@ router.get("/profile", async (req, res, next) => {
 		withCredentials: false
 	});
 	const user = response.data;
-	console.log(user);
     res.render('user/profile.njk', { user });
 })
 

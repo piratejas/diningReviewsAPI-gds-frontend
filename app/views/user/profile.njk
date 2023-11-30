@@ -4,17 +4,6 @@
 
 {% block pageTitle %}Manage profile - {{serviceName}} - TDSE.UK{% endblock %}
 
-{# TODO: pass in user object #}
-{# {% set loggedIn = true %}
-{% set user = {
-	"name": "piratejas",
-	"city": "New York",
-	"state": "NY",
-	"zipCode": "56789",
-	"peanutAllergy": true,
-	"eggAllergy": false,
-	"dairyAllergy": true
-} %} #}
 {% set allergies = [] %}
 {% if user.peanutAllergy %}{% set _ = allergies.push("Peanut") %}{% endif %}
 {% if user.eggAllergy %}{% set _ = allergies.push("Egg") %}{% endif %}
