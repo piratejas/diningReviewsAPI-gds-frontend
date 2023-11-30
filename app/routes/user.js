@@ -2,55 +2,23 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
+const createSessionCookie = require('../utils/createSessionCookie');
+const isLoggedIn = require('../utils/middleware/isLoggedIn');
+const { login } = require('../models/user');
 
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
-
-let requestInterceptor;
-
-const isLoggedIn = (req, res, next) => {
-  
-	if (req.cookies.session.loggedIn) {
-		requestInterceptor = axios.interceptors.request.use((config) => {
-			config.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
-			return config;
-		  });
-	  	res.locals.session = {
-			username: req.cookies.session.username,
-			loggedIn: req.cookies.session.loggedIn
-	  	};
-	}
-  
-	next();
-  };
 
 router.route("/login")
     .get((req, res, next) => {
         res.render('user/login.njk');
     })
     .post(async (req, res, next) => {
-		const data = {
-			"username": req.body.username,
-			"password": req.body.password
-		}
-
 		try {
-            const response = await axios.post('http://localhost:4001/auth/login', data);
+            const response = await login(req);
 
             if (response.status === 200) {
-				const cookieData = {
-					username: response.data.username,
-					token: response.data.jwt,
-					loggedIn: true
-				}
-
-                res.cookie('session', cookieData, {
-                    httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production', // Set to true in production if using HTTPS
-                    maxAge: 60 * 60 * 1000, // 1hr
-                    sameSite: 'Lax',
-                    path: '/'
-                });
+				createSessionCookie(res, response.data);
                 res.redirect("/user/contents");
             } else {
                 // TODO
@@ -113,7 +81,7 @@ router.get("/confirmation", (req, res, next) => {
 
 router.get("/logout", (req, res, next) => {
 	res.clearCookie('session');
-	axios.interceptors.request.eject(requestInterceptor);
+	axios.interceptors.request.eject(res.locals.requestInterceptor);
 	res.render('user/logout.njk');
 })
 
