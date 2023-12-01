@@ -18,7 +18,7 @@ router.route("/login")
             const response = await login(req);				createSessionCookie(res, response.data);
             res.redirect("/user/contents");
         } catch (error) {
-            if (error.response.status === 401) {
+            if (error.response?.status === 401) {
 				res.status(401).send('Login failed.');
 			} else {
 				console.error('Error sending POST request:', error);

@@ -7,11 +7,7 @@ const login = async (req) => {
 		"password": req.body.password
 	}
 
-	try {
-		return await axios.post('http://localhost:4001/auth/login', data);
-	  } catch (error) {
-		throw error;
-	  }
+	return await axios.post('http://localhost:4001/auth/login', data);
 };
 
 module.exports = {
