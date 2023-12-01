@@ -1,3 +1,11 @@
-- add error message macros to text input / validation
+- error handling
+	- middleware?
+	- error feedback in views
+	- add error message macros to text input / validation
+
 - auth / sign-in / session cookies
+	- isLoggedIn middleware
+		- refactor axios config for auth header
+	- password is being posted in plain text?!
+
 - cookie banner

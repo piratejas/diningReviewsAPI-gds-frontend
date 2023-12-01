@@ -21,8 +21,8 @@ router.route("/login")
             if (error.response?.status === 401) {
 				res.status(401).send('Login failed.');
 			} else {
-				console.error('Error sending POST request:', error);
-				res.status(500).send('Internal server error.')
+				// console.error('Error sending POST request:', error);
+				res.redirect('/internalServerError');
 			}
         }
     })
