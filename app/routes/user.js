@@ -37,15 +37,15 @@ router.route("/registration")
 			res.redirect("/user/confirmation");
 
         } catch (error) {
-			console.log("Error");
-            // if (error.response?.status === 409) {
-			// 	// TODO
-            //     res.status(409).send('Username already in use. Please choose another username.');
-            // } else {
-			// 	// TODO
-			// 	console.error('Error sending POST request:', error.response.status);
-			// 	res.status(500).send('Internal Server Error');
-            // }
+			// console.log(error.request);
+            if (error.response.status === 409) {
+				// TODO
+                res.status(409).send('Username already in use. Please choose another username.');
+            } else {
+				// TODO
+				console.error('Error sending POST request:', error.response.status);
+				res.status(500).send('Internal Server Error');
+            }
         }
     })
 	
