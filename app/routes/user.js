@@ -18,7 +18,9 @@ router.route("/login")
             const response = await login(req);				createSessionCookie(res, response.data);
             res.redirect("/user/contents");
         } catch (error) {
-            if (error.response?.status === 401) {
+            if (error.response.status === 401) {
+				// TODO
+				// console.log(error.response);
 				res.status(401).send('Login failed.');
 			} else {
 				// console.error('Error sending POST request:', error);
@@ -33,18 +35,16 @@ router.route("/registration")
     })
     .post(async (req, res, next) => {
 		try {
-            register(req);
+            await register(req);
 			res.redirect("/user/confirmation");
-
         } catch (error) {
-			// console.log(error.request);
-            if (error.response.status === 409) {
+			if (error.response.status === 409) {
 				// TODO
+				// console.log(error.response);
                 res.status(409).send('Username already in use. Please choose another username.');
             } else {
-				// TODO
-				console.error('Error sending POST request:', error.response.status);
-				res.status(500).send('Internal Server Error');
+				// console.error('Error sending POST request:', error);
+				res.redirect('/internalServerError');
             }
         }
     })
