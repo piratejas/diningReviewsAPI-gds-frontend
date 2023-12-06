@@ -11,10 +11,11 @@ module.exports = (req, res, next) => {
 	  	res.locals.session = {
 			username: req.cookies.session.username,
 			loggedIn: req.cookies.session.loggedIn
-	  	};
+		};
+		
+		next();
+
 	} else {
-		res.redirect('/login');
+		return res.redirect('/user/login');
 	}
-  
-	next();
   };

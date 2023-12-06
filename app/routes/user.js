@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
 const createSessionCookie = require('../utils/createSessionCookie');
-const isLoggedIn = require('../utils/middleware/isLoggedIn');
+const isAuthenticated = require('../utils/middleware/isAuthenticated');
 const { login, register, getProfile, logout } = require('../models/user');
 
 router.use(express.urlencoded({ extended: true }));
@@ -57,7 +57,7 @@ router.get("/logout", (req, res, next) => {
 	res.render('user/logout.njk');
 })
 
-router.use(isLoggedIn);
+router.use(isAuthenticated);
 
 router.get("/contents", (req, res, next) => {
     res.render('user/contents.njk');
