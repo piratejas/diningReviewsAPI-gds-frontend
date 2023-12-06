@@ -1,9 +1,9 @@
-const axios = require('axios');
+const { authenticated } = require('../axiosConfig');
 
 module.exports = (req, res, next) => {
   
-	if (req.cookies.session.loggedIn) {
-		res.locals.requestInterceptor = axios.interceptors.request.use((config) => {
+	if (req.cookies.session?.loggedIn) {
+		authenticated.interceptors.request.use((config) => {
 			config.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
 			return config;
 		  });
@@ -12,6 +12,8 @@ module.exports = (req, res, next) => {
 			username: req.cookies.session.username,
 			loggedIn: req.cookies.session.loggedIn
 	  	};
+	} else {
+		res.redirect('/login');
 	}
   
 	next();

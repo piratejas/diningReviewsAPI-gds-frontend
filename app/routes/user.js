@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 const cookieParser = require('cookie-parser');
 const createSessionCookie = require('../utils/createSessionCookie');
 const isLoggedIn = require('../utils/middleware/isLoggedIn');
-const { login, register } = require('../models/user');
+const { login, register, getProfile, logout } = require('../models/user');
 
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
@@ -20,8 +19,8 @@ router.route("/login")
         } catch (error) {
             if (error.response.status === 401) {
 				// TODO
-				// console.log(error.response);
-				res.status(401).send('Login failed.');
+				console.log(error.response);
+				res.status(401).send(error.response.data.message);
 			} else {
 				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
@@ -40,8 +39,8 @@ router.route("/registration")
         } catch (error) {
 			if (error.response.status === 409) {
 				// TODO
-				// console.log(error.response);
-                res.status(409).send('Username already in use. Please choose another username.');
+				console.log(error.response);
+                res.status(409).send(error.response.data.message);
             } else {
 				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
@@ -54,8 +53,7 @@ router.get("/confirmation", (req, res, next) => {
 })
 
 router.get("/logout", (req, res, next) => {
-	res.clearCookie('session');
-	axios.interceptors.request.eject(res.locals.requestInterceptor);
+	logout(res);
 	res.render('user/logout.njk');
 })
 
@@ -66,7 +64,7 @@ router.get("/contents", (req, res, next) => {
 })
 
 router.get("/profile", async (req, res, next) => {
-	const response = await axios.get(`http://localhost:4001/users/${res.locals.session.username}`);
+	const response = await getProfile(res);
 	const user = response.data;
     res.render('user/profile.njk', { user });
 })

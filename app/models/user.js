@@ -1,4 +1,4 @@
-const axios = require('axios');
+const { notAuthenticated, authenticated } = require('../utils/axiosConfig');
 
 const login = async (req) => {
 	
@@ -7,7 +7,7 @@ const login = async (req) => {
 		"password": req.body.password
 	}
 
-	return await axios.post('http://localhost:4001/auth/login', data);
+	return await notAuthenticated.post('/login', data);
 };
 
 const register = async (req) => {
@@ -23,10 +23,23 @@ const register = async (req) => {
 		"peanutAllergy": "peanutAllergy" in req.body
 	}
 
-	return await axios.post('http://localhost:4001/auth/register', data);
+	return await notAuthenticated.post('/register', data);
+}
+
+const getProfile = async (res) => {
+
+	return await authenticated.get(`/${res.locals.session.username}`);
+}
+
+const logout = (res) => {
+	
+	res.clearCookie('session');
+	authenticated.interceptors.request.clear();
 }
 
 module.exports = {
 	login,
-	register
+	register,
+	getProfile,
+	logout
 }

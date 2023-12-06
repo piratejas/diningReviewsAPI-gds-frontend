@@ -2,7 +2,7 @@
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% block pageTitle %}Manage profile - {{serviceName}} - TDSE.UK{% endblock %}
+{% block pageTitle %}Manage profile - {{serviceName}} - {{businessName}}{% endblock %}
 
 {% set allergies = [] %}
 {% if user.peanutAllergy %}{% set _ = allergies.push("Peanut") %}{% endif %}
