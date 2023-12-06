@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const cookieParser = require('cookie-parser');
 const createSessionCookie = require('../utils/createSessionCookie');
 const authenticateUser = require('../utils/middleware/authenticateUser');
 const { login, register, getProfile, logout } = require('../models/user');
 
-router.use(express.urlencoded({ extended: true }));
-router.use(cookieParser());
 
 router.route("/login")
     .get((req, res, next) => {
