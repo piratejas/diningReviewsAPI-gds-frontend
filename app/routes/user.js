@@ -17,7 +17,7 @@ router.route("/login")
             const response = await login(req);				createSessionCookie(res, response.data);
             res.redirect("/user/contents");
         } catch (error) {
-            if (error.response.status === 401) {
+            if (error.response?.status === 401) {
 				// TODO
 				console.log(error.response);
 				res.status(401).send(error.response.data.message);
@@ -37,7 +37,7 @@ router.route("/registration")
             await register(req);
 			res.redirect("/user/confirmation");
         } catch (error) {
-			if (error.response.status === 409) {
+			if (error.response?.status === 409) {
 				// TODO
 				console.log(error.response);
                 res.status(409).send(error.response.data.message);

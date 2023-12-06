@@ -1,3 +1,11 @@
 {% extends "templates/layout.njk" %}
 
 {% block pageTitle %}Documentation - {{serviceName}} - {{businessName}}{% endblock %}
+
+{% block beforeContent %}
+	{{ super() }}
+	<div class="before-content-banner">
+		{% include "templates/breadcrumbs.njk" %}
+		{% include "templates/subnav-auth.njk" %}
+	</div>
+{% endblock %}
