@@ -4,7 +4,7 @@
 	- add error message macros to text input / validation
 
 - auth / sign-in / session cookies
-	- isLoggedIn middleware
+	- authenticateUser middleware
 		- refactor axios config for auth header
 	- password is being posted in plain text?!
 
