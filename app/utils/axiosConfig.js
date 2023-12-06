@@ -9,7 +9,12 @@ const authenticated = axios.create({
 
 })
 
+const admin = axios.create({
+	baseURL: 'http://localhost:4001/admin'
+})
+
 module.exports = {
 	notAuthenticated,
-	authenticated
+	authenticated,
+	admin
 }
