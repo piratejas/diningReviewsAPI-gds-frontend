@@ -1,5 +1,6 @@
 const { notAuthenticated, authenticated } = require('../utils/axiosConfig');
 
+
 const login = async (req) => {
 	
 	const data = {
@@ -10,17 +11,17 @@ const login = async (req) => {
 	return await notAuthenticated.post('/login', data);
 };
 
-const register = async (req) => {
+const register = async (validatedData) => {
 
 	const data = {
-		"username": req.body.name,
-		"password": req.body.password,
-		"city": req.body.city,
-		"county": req.body.county,
-		"postCode": req.body.postCode,
-		"dairyAllergy": "dairyAllergy" in req.body,
-		"eggAllergy": "eggAllergy" in req.body,
-		"peanutAllergy": "peanutAllergy" in req.body
+		"username": validatedData.name,
+		"password": validatedData.password,
+		"city": validatedData.city,
+		"county": validatedData.county,
+		"postCode": validatedData.postCode,
+		"dairyAllergy": "dairyAllergy" in validatedData,
+		"eggAllergy": "eggAllergy" in validatedData,
+		"peanutAllergy": "peanutAllergy" in validatedData
 	}
 
 	return await notAuthenticated.post('/register', data);

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const createSessionCookie = require('../utils/createSessionCookie');
 const authenticateUser = require('../utils/middleware/authenticateUser');
+const createSessionCookie = require('../utils/createSessionCookie');
+const validateRegistration = require('../utils/validateRegistration');
 const { login, register, getProfile, logout } = require('../models/user');
 
 
@@ -31,8 +32,14 @@ router.route("/registration")
     })
     .post(async (req, res, next) => {
 		try {
-            await register(req);
-			res.redirect("/user/confirmation");
+			const formData = req.body;
+			const errors = validateRegistration(formData);
+			if (errors.length > 0) {
+				res.render('user/registration.njk', { errors, formData });
+			} else {
+				await register(formData);
+				res.redirect("/user/confirmation");
+			}
         } catch (error) {
 			if (error.response?.status === 409) {
 				// TODO

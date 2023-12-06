@@ -2,6 +2,7 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block pageTitle %}Register a user account - {{serviceName}} - {{businessName}}{% endblock %}
@@ -12,13 +13,19 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
 
                 <h1 class="govuk-heading-l">
                     Register for a user account
                 </h1>
+
+				{% if errors %}
+					{{ govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors
+					}) }}
+				{% endif %}
 
                 <p class="govuk-body">
                     Register a user account to start using our <a class="govuk-link" href="/">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
@@ -32,9 +39,13 @@
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         classes: "govuk-input--width-20",
-                        id: "name",
-                        name: "name",
-                        autocomplete: "username"
+                        id: "username",
+                        name: "username",
+						value: formData.username,
+                        autocomplete: "username",
+						errorMessage: {
+							text: "Enter a username"
+						}
                     }) }}
 
                     {{ govukInput({
@@ -44,7 +55,11 @@
                         },
                         classes: "govuk-input--width-20",
                         id: "city",
-                        name: "city"
+                        name: "city",
+						value: formData.city,
+						errorMessage: {
+							text: "Enter a city"
+						}
                     }) }}
 
                     {{ govukInput({
@@ -54,7 +69,11 @@
                         },
                         classes: "govuk-input--width-20",
                         id: "county",
-                        name: "county"
+                        name: "county",
+						value: formData.county,
+						errorMessage: {
+							text: "Enter a county"
+						}
                     }) }}
 
                     {{ govukInput({
@@ -65,7 +84,11 @@
                         classes: "govuk-input--width-10",
                         id: "postCode",
                         name: "postCode",
-                        autocomplete: "postal-code"
+						value: formData.postCode,
+                        autocomplete: "postal-code",
+						errorMessage: {
+							text: "Enter a full UK postcode in the correct format"
+						}
                     }) }}
 
                     {{ govukCheckboxes({
@@ -111,8 +134,9 @@
                         classes: "govuk-input--width-20",
                         id: "password",
                         name: "password",
-                        describedBy: "password-hint",
-        				pattern: "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{12,}"
+						errorMessage: {
+							text: "Enter a password in the correct format"
+						}
                     }) }}
 
                     {{ govukInput({
@@ -123,7 +147,10 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "confirmpassword",
-                        name: "confirmpassword"
+                        name: "confirmpassword",
+						errorMessage: {
+							text: "Confirm your password"
+						}
                     }) }}
 
                     <p class="govuk-body">
