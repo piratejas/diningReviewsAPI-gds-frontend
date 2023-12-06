@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
 			config.headers['Authorization'] = `Bearer ${req.cookies.session.token}`;
 			return config;
 		  });
+		  
 	  	res.locals.session = {
 			username: req.cookies.session.username,
 			loggedIn: req.cookies.session.loggedIn

@@ -7,7 +7,7 @@ module.exports = (res, data) => {
 
 	res.cookie('session', cookieData, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === 'production', // Set to true in production if using HTTPS
+		secure: process.env.NODE_ENV === 'production',
 		maxAge: 60 * 60 * 1000, // 1hr
 		sameSite: 'Lax',
 		path: '/'
