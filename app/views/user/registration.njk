@@ -42,10 +42,7 @@
                         id: "username",
                         name: "username",
 						value: formData.username,
-                        autocomplete: "username",
-						errorMessage: {
-							text: "Enter a username"
-						}
+                        autocomplete: "username"
                     }) }}
 
                     {{ govukInput({
@@ -56,10 +53,7 @@
                         classes: "govuk-input--width-20",
                         id: "city",
                         name: "city",
-						value: formData.city,
-						errorMessage: {
-							text: "Enter a city"
-						}
+						value: formData.city
                     }) }}
 
                     {{ govukInput({
@@ -70,10 +64,7 @@
                         classes: "govuk-input--width-20",
                         id: "county",
                         name: "county",
-						value: formData.county,
-						errorMessage: {
-							text: "Enter a county"
-						}
+						value: formData.county
                     }) }}
 
                     {{ govukInput({
@@ -85,10 +76,7 @@
                         id: "postcode",
                         name: "postcode",
 						value: formData.postcode,
-                        autocomplete: "postal-code",
-						errorMessage: {
-							text: "Enter a full UK postcode in the correct format"
-						}
+                        autocomplete: "postal-code"
                     }) }}
 
                     {{ govukCheckboxes({
@@ -133,10 +121,7 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "password",
-                        name: "password",
-						errorMessage: {
-							text: "Enter a password in the correct format"
-						}
+                        name: "password"
                     }) }}
 
                     {{ govukInput({
@@ -147,10 +132,7 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "confirmpassword",
-                        name: "confirmpassword",
-						errorMessage: {
-							text: "Confirm your password"
-						}
+                        name: "confirmpassword"
                     }) }}
 
                     <p class="govuk-body">

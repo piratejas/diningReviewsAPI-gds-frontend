@@ -14,7 +14,7 @@ const validateRegistration = (formData) => {
 
     const validatePassword = (password) => {
         const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}$/;
-        if (!password.match(passwordPattern)) {
+        if (password && !password.match(passwordPattern)) {
             errors.push({
                 text: 'Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character',
                 href: '#password',

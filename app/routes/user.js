@@ -35,6 +35,7 @@ router.route("/registration")
 			const formData = req.body;
 			const errors = validateRegistration(formData);
 			if (errors.length > 0) {
+				console.log(errors);
 				res.render('user/registration.njk', { errors, formData });
 			} else {
 				await register(formData);
