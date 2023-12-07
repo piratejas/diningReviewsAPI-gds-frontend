@@ -93,18 +93,21 @@
                         items: [
                             {
 								name: "eggAllergy",
-                                value: "egg",
-                                text: "Egg"
+                                value: "true",
+                                text: "Egg",
+								checked: "true" if formData.eggAllergy else ""
                             },
                             {
 								name: "dairyAllergy",
-                                value: "dairy",
-                                text: "Dairy"
+                                value: "true",
+                                text: "Dairy",
+								checked: "true" if formData.dairyAllergy else ""
                             },
                             {
 								name: "peanutAllergy",
-                                value: "peanut",
-                                text: "Peanut"
+                                value: "true",
+                                text: "Peanut",
+								checked: "true" if formData.peanutAllergy else ""
                             }
                         ]
                     }) }}

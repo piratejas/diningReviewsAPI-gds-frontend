@@ -33,6 +33,7 @@ router.route("/registration")
     .post(async (req, res, next) => {
 		try {
 			const formData = req.body;
+			console.log(formData);
 			const errors = validateRegistration(formData);
 			if (errors.length > 0) {
 				console.log(errors);

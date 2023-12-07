@@ -12,14 +12,20 @@ const validateRegistration = (formData) => {
         }
     };
 
-    const validatePassword = (password) => {
+    const validatePassword = (password, confirmPassword) => {
         const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}$/;
         if (password && !password.match(passwordPattern)) {
-            errors.push({
+            return errors.push({
                 text: 'Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character',
                 href: '#password',
             });
         }
+		if (password && password !== confirmPassword) {
+			errors.push({
+				text: 'Passwords do not match',
+				href: '#confirmpassword',
+			});
+		}
     };
 
 	const validatepostcode = (postcode) => {
@@ -46,14 +52,7 @@ const validateRegistration = (formData) => {
 
 	validatepostcode(postcode);
 
-	validatePassword(password);
-    
-	if (password !== confirmPassword) {
-        errors.push({
-            text: 'Passwords do not match',
-            href: '#confirmpassword',
-        });
-    }
+	validatePassword(password, confirmPassword);
 
     return errors;
 };
