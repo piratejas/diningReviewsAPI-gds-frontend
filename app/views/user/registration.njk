@@ -16,16 +16,16 @@
     <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
 
-                <h1 class="govuk-heading-l">
-                    Register for a user account
-                </h1>
-
 				{% if errors %}
 					{{ govukErrorSummary({
 						titleText: "There is a problem",
 						errorList: errors
 					}) }}
 				{% endif %}
+                
+				<h1 class="govuk-heading-l">
+                    Register for a user account
+                </h1>
 
                 <p class="govuk-body">
                     Register a user account to start using our <a class="govuk-link" href="/">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
@@ -93,21 +93,21 @@
                         items: [
                             {
 								name: "eggAllergy",
-                                value: "true",
+                                value: true,
                                 text: "Egg",
-								checked: "true" if formData.eggAllergy else ""
+								checked: true if formData.eggAllergy else false
                             },
                             {
 								name: "dairyAllergy",
-                                value: "true",
+                                value: true,
                                 text: "Dairy",
-								checked: "true" if formData.dairyAllergy else ""
+								checked: true if formData.dairyAllergy else false
                             },
                             {
 								name: "peanutAllergy",
-                                value: "true",
+                                value: true,
                                 text: "Peanut",
-								checked: "true" if formData.peanutAllergy else ""
+								checked: true if formData.peanutAllergy else false
                             }
                         ]
                     }) }}
@@ -118,7 +118,7 @@
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         hint: {
-                            text: "Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character",
+                            text: "Your password must be at least 8 characters and contain at least one number, lowercase letter, uppercase letter and special character",
                             id: "password-hint"
                         },
                         type: "password",

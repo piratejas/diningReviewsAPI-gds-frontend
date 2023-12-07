@@ -31,10 +31,11 @@ router.route("/registration")
         res.render('user/registration.njk');
     })
     .post(async (req, res, next) => {
+		const formData = req.body;
+		var errors;
 		try {
-			const formData = req.body;
 			console.log(formData);
-			const errors = validateRegistration(formData);
+			errors = validateRegistration(formData);
 			if (errors.length > 0) {
 				console.log(errors);
 				res.render('user/registration.njk', { errors, formData });
@@ -46,7 +47,11 @@ router.route("/registration")
 			if (error.response?.status === 409) {
 				// TODO
 				console.log(error.response);
-                res.status(409).send(error.response.data.message);
+				errors.push({
+					text: "Username must be unique - choose a new username",
+					href: "#username"
+				});
+                res.render('user/registration.njk', { errors, formData });
             } else {
 				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');

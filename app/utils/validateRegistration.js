@@ -2,7 +2,7 @@ const { isValid } = require('postcode');
 
 const validateRegistration = (formData) => {
     const errors = [];
-
+	
     const validateRequired = (field, fieldName) => {
         if (!field.trim()) {
             errors.push({
@@ -12,11 +12,20 @@ const validateRegistration = (formData) => {
         }
     };
 
+	const validatepostcode = (postcode) => {
+		if (!isValid(postcode)) {
+			errors.push({
+				text: 'Enter a full UK postcode',
+				href: '#postcode'
+			})
+		}
+	};
+
     const validatePassword = (password, confirmPassword) => {
-        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}$/;
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
         if (password && !password.match(passwordPattern)) {
             return errors.push({
-                text: 'Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character',
+                text: 'Enter a password in the correct format',
                 href: '#password',
             });
         }
@@ -27,15 +36,6 @@ const validateRegistration = (formData) => {
 			});
 		}
     };
-
-	const validatepostcode = (postcode) => {
-		if (!isValid(postcode)) {
-			errors.push({
-				text: 'Enter a full UK postcode in the correct format',
-				href: '#postcode'
-			})
-		}
-	}
 
     const username = formData.username;
     const city = formData.city;
