@@ -14,11 +14,11 @@ const login = async (req) => {
 const register = async (validatedData) => {
 
 	const data = {
-		"username": validatedData.name,
+		"username": validatedData.username,
 		"password": validatedData.password,
 		"city": validatedData.city,
 		"county": validatedData.county,
-		"postCode": validatedData.postCode,
+		"postcode": validatedData.postcode,
 		"dairyAllergy": "dairyAllergy" in validatedData,
 		"eggAllergy": "eggAllergy" in validatedData,
 		"peanutAllergy": "peanutAllergy" in validatedData

@@ -22,11 +22,11 @@ const validateRegistration = (formData) => {
         }
     };
 
-	const validatePostCode = (postCode) => {
-		if (!isValid(postCode)) {
+	const validatepostcode = (postcode) => {
+		if (!isValid(postcode)) {
 			errors.push({
 				text: 'Enter a full UK postcode in the correct format',
-				href: '#postCode'
+				href: '#postcode'
 			})
 		}
 	}
@@ -34,17 +34,17 @@ const validateRegistration = (formData) => {
     const username = formData.username;
     const city = formData.city;
     const county = formData.county;
-    const postCode = formData.postCode;
+    const postcode = formData.postcode;
     const password = formData.password;
     const confirmPassword = formData.confirmpassword;
 
     validateRequired(username, 'username');
     validateRequired(city, 'city');
     validateRequired(county, 'county');
-    validateRequired(postCode, 'postCode');
+    validateRequired(postcode, 'postcode');
     validateRequired(password, 'password');
 
-	validatePostCode(postCode);
+	validatepostcode(postcode);
 
 	validatePassword(password);
     
