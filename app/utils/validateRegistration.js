@@ -1,40 +1,40 @@
 const { isValid } = require('postcode');
 
 const validateRegistration = (formData) => {
-    const errors = [];
-	
+    const errors = {};
+
     const validateRequired = (field, fieldName) => {
         if (!field.trim()) {
-            errors.push({
+            errors[fieldName] = {
                 text: `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`,
                 href: `#${fieldName}`,
-            });
+            };
         }
     };
 
-	const validatepostcode = (postcode) => {
-		if (!isValid(postcode)) {
-			errors.push({
-				text: 'Enter a full UK postcode',
-				href: '#postcode'
-			})
-		}
-	};
+    const validatePostcode = (postcode) => {
+        if (!isValid(postcode)) {
+            errors['postcode'] = {
+                text: 'Enter a full UK postcode',
+                href: '#postcode',
+            };
+        }
+    };
 
     const validatePassword = (password, confirmPassword) => {
         const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
         if (password && !password.match(passwordPattern)) {
-            return errors.push({
+            errors['password'] = {
                 text: 'Enter a password in the correct format',
                 href: '#password',
-            });
+            };
         }
-		if (password && password !== confirmPassword) {
-			errors.push({
-				text: 'Passwords do not match',
-				href: '#confirmpassword',
-			});
-		}
+        if (password && password !== confirmPassword) {
+            errors['confirmpassword'] = {
+                text: 'Passwords do not match',
+                href: '#confirmpassword',
+            };
+        }
     };
 
     const username = formData.username;
@@ -50,11 +50,22 @@ const validateRegistration = (formData) => {
     validateRequired(postcode, 'postcode');
     validateRequired(password, 'password');
 
-	validatepostcode(postcode);
+	validatePostcode(postcode);
 
 	validatePassword(password, confirmPassword);
 
     return errors;
 };
+
+// function showErrorMessage(fieldId, message) {
+// 	const errorId = `${fieldId}-error`;
+// 	const errorElement = `<div id="${errorId}" class="govuk-error-message">${message}</div>`;
+// 	const fieldWithError = `<div class="govuk-input--error">{{ ${fieldId} }}</div>`;
+  
+// 	return {
+// 	  errorElement: errorElement,
+// 	  fieldWithError: fieldWithError,
+// 	};
+//   }
 
 module.exports = validateRegistration;

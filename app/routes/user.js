@@ -32,13 +32,13 @@ router.route("/registration")
     })
     .post(async (req, res, next) => {
 		const formData = req.body;
-		var errors;
+		let validationErrors;
 		try {
 			console.log(formData);
-			errors = validateRegistration(formData);
-			if (errors.length > 0) {
-				console.log(errors);
-				res.render('user/registration.njk', { errors, formData });
+			validationErrors = validateRegistration(formData);
+			if (Object.keys(validationErrors).length > 0) {
+				console.log(validationErrors);
+				res.render('user/registration.njk', { validationErrors, formData });
 			} else {
 				await register(formData);
 				res.redirect("/user/confirmation");
@@ -46,12 +46,12 @@ router.route("/registration")
         } catch (error) {
 			if (error.response?.status === 409) {
 				// TODO
-				console.log(error.response);
-				errors.push({
+				validationErrors['username'] = {
 					text: "Username must be unique - choose a new username",
-					href: "#username"
-				});
-                res.render('user/registration.njk', { errors, formData });
+                    href: "#username"
+                };
+				console.log(validationErrors);
+                res.render('user/registration.njk', { validationErrors, formData });
             } else {
 				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
