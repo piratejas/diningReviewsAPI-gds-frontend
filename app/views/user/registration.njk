@@ -2,73 +2,98 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% block pageTitle %}Register a user account - {{serviceName}} - {{businessName}}{% endblock %}
+{% block pageTitle %}Register a user account - {{serviceName}} - {{businessName}}
+{% endblock %}
 
 {% block beforeContent %}
-    {{ super() }}
-    {% include "templates/breadcrumbs.njk" %}
+	{{ super() }}
+	{% include "templates/breadcrumbs.njk" %}
 {% endblock %}
 
 {% block content %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
 
-    <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+			{% if validationErrors %}
+				{% set errorArray = [] %}
+				{% for field, error in validationErrors %}
+					{% set errorObject = {
+						'text': error.text,
+						'href': error.href
+					} %}
+					{% set _ = errorArray.push(errorObject) %}
+				{% endfor %}
 
-                <h1 class="govuk-heading-l">
+				{{ govukErrorSummary({
+					titleText: "There is a problem",
+					errorList: errorArray
+				}) }}
+			{% endif %}
+
+			<h1 class="govuk-heading-l">
                     Register for a user account
                 </h1>
 
-                <p class="govuk-body">
+			<p class="govuk-body">
                     Register a user account to start using our <a class="govuk-link" href="/">RESTful Restaurant Reviews service.</a> Already registered? <a class="govuk-link" href="/user/login">Sign in</a>.
                 </p>
 
-                <form action="/user/registration" method="post" novalidate>
+			<form action="/user/registration" method="post" novalidate>
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "Username",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         classes: "govuk-input--width-20",
-                        id: "name",
-                        name: "name",
-                        autocomplete: "username"
+                        id: "username",
+                        name: "username",
+						value: formData.username,
+                        autocomplete: "username",
+						errorMessage: validationErrors.username if validationErrors.username else false
                     }) }}
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "City",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         classes: "govuk-input--width-20",
                         id: "city",
-                        name: "city"
+                        name: "city",
+						value: formData.city,
+						errorMessage: validationErrors.city if validationErrors.city else false
                     }) }}
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "County",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         classes: "govuk-input--width-20",
                         id: "county",
-                        name: "county"
+                        name: "county",
+						value: formData.county,
+						errorMessage: validationErrors.county if validationErrors.county else false
                     }) }}
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "Post code",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         classes: "govuk-input--width-10",
-                        id: "postCode",
-                        name: "postCode",
-                        autocomplete: "postal-code"
+                        id: "postcode",
+                        name: "postcode",
+						value: formData.postcode,
+                        autocomplete: "postal-code",
+						errorMessage: validationErrors.postcode if validationErrors.postcode else false
                     }) }}
 
-                    {{ govukCheckboxes({
+				{{ govukCheckboxes({
                         name: "allergies",
                         fieldset: {
                             legend: {
@@ -82,40 +107,42 @@
                         items: [
                             {
 								name: "eggAllergy",
-                                value: "egg",
-                                text: "Egg"
+                                value: true,
+                                text: "Egg",
+								checked: true if formData.eggAllergy else false
                             },
                             {
 								name: "dairyAllergy",
-                                value: "dairy",
-                                text: "Dairy"
+                                value: true,
+                                text: "Dairy",
+								checked: true if formData.dairyAllergy else false
                             },
                             {
 								name: "peanutAllergy",
-                                value: "peanut",
-                                text: "Peanut"
+                                value: true,
+                                text: "Peanut",
+								checked: true if formData.peanutAllergy else false
                             }
                         ]
                     }) }}
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "Create password",
                             classes: "govuk-label govuk-!-font-weight-bold"
                         },
                         hint: {
-                            text: "Your password must be at least 12 characters and contain at least one number, lowercase letter, uppercase letter and special character",
+                            text: "Your password must be at least 8 characters and contain at least one number, lowercase letter, uppercase letter and special character",
                             id: "password-hint"
                         },
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "password",
                         name: "password",
-                        describedBy: "password-hint",
-        				pattern: "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{12,}"
+						errorMessage: validationErrors.password if validationErrors.password else false
                     }) }}
 
-                    {{ govukInput({
+				{{ govukInput({
                         label: {
                             text: "Confirm password",
                             classes: "govuk-label govuk-!-font-weight-bold"
@@ -123,24 +150,25 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "confirmpassword",
-                        name: "confirmpassword"
+                        name: "confirmpassword",
+						errorMessage: validationErrors.confirmpassword if validationErrors.confirmpassword else false
                     }) }}
 
-                    <p class="govuk-body">
+				<p class="govuk-body">
                         By creating an account you agree to our
                         <a class="govuk-link" href="#">terms and conditions</a>,
                         <a class="govuk-link" href="#">privacy policy</a> and
                         <a class="govuk-link" href="#">cookie policy</a>.
                     </p>
 
-                    {{ govukButton({
+				{{ govukButton({
                         text: "Register"
                     }) }}
 
-                </form>
-                <p class="govuk-body">
+			</form>
+			<p class="govuk-body">
                     Already registered? <a class="govuk-link" href="/user/login">Sign in to your account.</a>
-                </p>
-            </div>
-        </div>
+			</p>
+		</div>
+	</div>
 {% endblock %}

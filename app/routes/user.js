@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const createSessionCookie = require('../utils/createSessionCookie');
 const authenticateUser = require('../utils/middleware/authenticateUser');
+const createSessionCookie = require('../utils/createSessionCookie');
+const validateRegistration = require('../utils/validateRegistration');
 const { login, register, getProfile, logout } = require('../models/user');
 
 
@@ -30,14 +31,27 @@ router.route("/registration")
         res.render('user/registration.njk');
     })
     .post(async (req, res, next) => {
+		const formData = req.body;
+		let validationErrors;
 		try {
-            await register(req);
-			res.redirect("/user/confirmation");
+			console.log(formData);
+			validationErrors = validateRegistration(formData);
+			if (Object.keys(validationErrors).length > 0) {
+				console.log(validationErrors);
+				res.render('user/registration.njk', { validationErrors, formData });
+			} else {
+				await register(formData);
+				res.redirect("/user/confirmation");
+			}
         } catch (error) {
 			if (error.response?.status === 409) {
 				// TODO
-				console.log(error.response);
-                res.status(409).send(error.response.data.message);
+				validationErrors['username'] = {
+					text: "Username must be unique - choose a new username",
+                    href: "#username"
+                };
+				console.log(validationErrors);
+                res.render('user/registration.njk', { validationErrors, formData });
             } else {
 				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
