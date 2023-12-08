@@ -2,7 +2,7 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-{% from "govuk/components/error-summary/macro.njk" import govukvalidationErrorsummary %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block pageTitle %}Register a user account - {{serviceName}} - {{businessName}}
@@ -52,7 +52,8 @@
                         id: "username",
                         name: "username",
 						value: formData.username,
-                        autocomplete: "username"
+                        autocomplete: "username",
+						errorMessage: validationErrors.username if validationErrors.username else false
                     }) }}
 
 				{{ govukInput({
@@ -63,7 +64,8 @@
                         classes: "govuk-input--width-20",
                         id: "city",
                         name: "city",
-						value: formData.city
+						value: formData.city,
+						errorMessage: validationErrors.city if validationErrors.city else false
                     }) }}
 
 				{{ govukInput({
@@ -74,7 +76,8 @@
                         classes: "govuk-input--width-20",
                         id: "county",
                         name: "county",
-						value: formData.county
+						value: formData.county,
+						errorMessage: validationErrors.county if validationErrors.county else false
                     }) }}
 
 				{{ govukInput({
@@ -86,7 +89,8 @@
                         id: "postcode",
                         name: "postcode",
 						value: formData.postcode,
-                        autocomplete: "postal-code"
+                        autocomplete: "postal-code",
+						errorMessage: validationErrors.postcode if validationErrors.postcode else false
                     }) }}
 
 				{{ govukCheckboxes({
@@ -134,7 +138,8 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "password",
-                        name: "password"
+                        name: "password",
+						errorMessage: validationErrors.password if validationErrors.password else false
                     }) }}
 
 				{{ govukInput({
@@ -145,7 +150,8 @@
                         type: "password",
                         classes: "govuk-input--width-20",
                         id: "confirmpassword",
-                        name: "confirmpassword"
+                        name: "confirmpassword",
+						errorMessage: validationErrors.confirmpassword if validationErrors.confirmpassword else false
                     }) }}
 
 				<p class="govuk-body">

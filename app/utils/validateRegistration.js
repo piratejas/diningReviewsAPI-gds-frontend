@@ -57,15 +57,4 @@ const validateRegistration = (formData) => {
     return errors;
 };
 
-// function showErrorMessage(fieldId, message) {
-// 	const errorId = `${fieldId}-error`;
-// 	const errorElement = `<div id="${errorId}" class="govuk-error-message">${message}</div>`;
-// 	const fieldWithError = `<div class="govuk-input--error">{{ ${fieldId} }}</div>`;
-  
-// 	return {
-// 	  errorElement: errorElement,
-// 	  fieldWithError: fieldWithError,
-// 	};
-//   }
-
 module.exports = validateRegistration;
