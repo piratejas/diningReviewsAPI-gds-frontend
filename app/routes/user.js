@@ -16,11 +16,12 @@ router.route("/login")
             res.redirect("/user/contents");
         } catch (error) {
             if (error.response?.status === 401) {
-				// TODO
-				console.log(error.response);
-				res.status(401).send(error.response.data.message);
+				const loginError = {
+					text: "Provide a valid username or password",
+					href: "#login-error"
+				};
+				res.render('user/login.njk', { loginError });
 			} else {
-				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
 			}
         }
@@ -34,7 +35,6 @@ router.route("/registration")
 		const formData = req.body;
 		let validationErrors;
 		try {
-			console.log(formData);
 			validationErrors = validateRegistration(formData);
 			if (Object.keys(validationErrors).length > 0) {
 				console.log(validationErrors);
@@ -45,15 +45,12 @@ router.route("/registration")
 			}
         } catch (error) {
 			if (error.response?.status === 409) {
-				// TODO
 				validationErrors['username'] = {
 					text: "Username must be unique - choose a new username",
                     href: "#username"
                 };
-				console.log(validationErrors);
                 res.render('user/registration.njk', { validationErrors, formData });
             } else {
-				// console.error('Error sending POST request:', error);
 				res.redirect('/internalServerError');
             }
         }
