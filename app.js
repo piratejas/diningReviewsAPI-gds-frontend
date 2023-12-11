@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const nunjucks = require('nunjucks');
 const path = require('path');
 
@@ -20,6 +21,7 @@ nunjucks.configure([
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/assets', express.static(path.join(__dirname, 'node_modules/govuk-frontend/govuk/assets')));
